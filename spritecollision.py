@@ -10,7 +10,7 @@ pygame.init()
 
 
 
-background_image = pygame.transform.scale(pygame.image.load("bg.jpg"),  (SCREEN_WIDTH, SCREEN_HEIGHT))
+background_image = pygame.transform.scale(pygame.image.load("hi.jpeg"),  (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 font = pygame.font.SysFont("Times New Roman", FONT_SIZE)
 
@@ -26,10 +26,10 @@ class Sprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def move(self, x_change, y_change):
-        self.rect = max(
+        self.rect.x = max(
             min(self.rect.x + x_change, SCREEN_WIDTH - self.rect.width), 0)
         self.rect.y = max(
-            min(self.rect.y + y_change, SCREEN_HEIGHT - self.rect.height),0 )
+            min(self.rect.y + y_change, SCREEN_HEIGHT - self.rect.height), 0)
 
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -40,7 +40,7 @@ all_sprite = pygame.sprite.Group()
 sprite1 = Sprite(pygame.Color('black'), 20, 30)
 sprite1.rect.x, sprite1.rect.y = random.randint(
     0, SCREEN_WIDTH - sprite1.rect.width), random.randint(
-        0, SCREEN_HEIGHT - sprite1.rect.width)
+        0, SCREEN_HEIGHT - sprite1.rect.height)
 
 sprite2 = Sprite(pygame.Color('red'), 20, 30)
 sprite2.rect.x, sprite2.rect.y = random.randint(
@@ -76,4 +76,10 @@ while running:
 
     if won:
         win_text = font.render("You win!", True, pygame.Color('black'))
-        screen.blit(win_text, ((SCREEN_WIDTH - win_text.get))
+        screen.blit(win_text, ((SCREEN_WIDTH - win_text.get_width()) // 2,
+                               (SCREEN_HEIGHT - win_text.get_height()) // 2))
+
+    pygame.display.flip()
+    clock.tick(90)
+
+pygame.quit
